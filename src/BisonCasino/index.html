@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>Document</title>
+
+<link rel="stylesheet" type="text/css" href="index.css">
+
+<script src="./node_modules/web3/dist/web3.min.js"></script>
+
+</head>
+<body>
+ <div class="container">
+
+<h1>First Smart Contract</h1>
+
+<h2 id="instructor"></h2>
+
+<label for="name" class="col-lg-2 control-label">Instructor Name</label>
+ <input id="name" type="text">
+
+<label for="name" class="col-lg-2 control-label">Instructor Age</label>
+ <input id="age" type="text">
+
+<button id="button">Update Instructor</button>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+<script>
+ if (typeof web3 !== 'undefined') 
+{
+ web3 = new Web3(web3.currentProvider);
+ } 
+else 
+{
+
+ // set the provider you want from Web3.providers
+web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+ }
+
+// Set accoutn 0
+web3.eth.defaultAccount = web3.eth.accounts[0];
+
+// Bison Contract ABI
+var BisonAbi = web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "electWinner",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "bisonName",
+				"type": "bytes32"
+			}
+		],
+		"name": "placeBet",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "initialBisonNames",
+				"type": "bytes32[]"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "bisonName",
+				"type": "bytes32"
+			}
+		],
+		"name": "totalBetsFor",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalPot",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]);
+
+// Contract var for interacting with contract, ie:
+// Bison.totalBetsFor("0x01")
+// Bison.placBet("0x01")
+var Bison = BisonAbi.at('0x88e7aa7b3da8d293ea4bedf298ffc2337eab58ec');
+
+
+</script>
+
+</body>
+</html>
