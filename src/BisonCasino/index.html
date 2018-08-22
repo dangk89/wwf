@@ -39,7 +39,7 @@
 else 
 {
 
- // set the provider you want from Web3.providers
+ // Set localhost to ganache RPC server (7545 for Desktop, 8545 for ganache-cli)
 web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
  }
 
@@ -117,13 +117,12 @@ var BisonAbi = web3.eth.contract([
 	}
 ]);
 
-// Contract var for interacting with contract, ie:
-// Bison.totalBetsFor("0x01")
-// Bison.placBet("0x01")
+// Set to deployed contract address. Usage:
+// 	Bison.totalBetsFor("0x01")
+// 	Bison.placBet("0x01")
 var Bison = BisonAbi.at('0x88e7aa7b3da8d293ea4bedf298ffc2337eab58ec');
 
 
 </script>
-
 </body>
 </html>
