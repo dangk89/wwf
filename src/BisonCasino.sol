@@ -82,21 +82,23 @@ contract BisonCasino {
         }
 
         // calculate winnings and profit
-
         uint wwfcut = totalPot() / 20;
         uint payout = totalPot() - wwfcut;
-        uint split = payout / totalBetsFor(bestBison);
 
-        // transfer winnings and profit
-        for(i = 0; i < betters.length; i++) {
-            address better = betters[i];
-            if(bets[better] == bestBison) {
-                better.transfer(split);
+        uint bestBisonBets = totalBetsFor(bestBison);
+        if(bestBisonBets > 0) {
+            uint split = payout / bestBisonBets;
+
+            // transfer winnings and profit
+            for(i = 0; i < betters.length; i++) {
+                address better = betters[i];
+                if(bets[better] == bestBison) {
+                    better.transfer(split);
+                }
             }
         }
+
         owner.transfer(address(this).balance);
-
-
 
         // clear bets
         for(i = 0; i < betters.length; i++) {
