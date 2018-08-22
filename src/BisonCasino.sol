@@ -79,7 +79,7 @@ contract BisonCasino {
 
         // calculate winnings and profit
 
-        uint wwfcut = 0.05 * totalPot();
+        uint wwfcut = totalPot() / 20;
         uint payout = totalPot() - wwfcut;
         uint split = payout / totalBetsFor(bestBison);
 
@@ -90,7 +90,7 @@ contract BisonCasino {
                 better.transfer(split);
             }
         }
-        owner.transfer(this.balanceOf());
+        owner.transfer(address(this).balance);
 
 
 
