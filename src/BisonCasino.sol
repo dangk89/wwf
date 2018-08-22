@@ -22,28 +22,28 @@ contract BisonCasino {
     mapping(address => bytes32) bets;
 
 
-    constructor (bytes32[] initialBisonNames) public payable {
-        bisonNames = initialBisonNames;
+    constructor (bytes32[] _initialBisonNames) public payable {
+        bisonNames = _initialBisonNames;
 
         owner = msg.sender;
     }
 
-    function placeBet(bytes32 bisonName) public payable {
-        require(bisonExists(bisonName));
-        //require(msg.value == BET_AMOUNT);
+    function placeBet(bytes32 _bisonName) public payable {
+        require(bisonExists(_bisonName));
+        require(msg.value == BET_AMOUNT);
 
         betters.push(msg.sender);
-        bets[msg.sender] = bisonName;
+        bets[msg.sender] = _bisonName;
     }
 
-    function totalBetsFor(bytes32 bisonName) public view returns (uint) {
-        require(bisonExists(bisonName));
+    function totalBetsFor(bytes32 _bisonName) public view returns (uint) {
+        require(bisonExists(_bisonName));
 
         // count total bets
         uint totalBets = 0;
         for(uint i = 0; i < betters.length; i++) {
             address better = betters[i];
-            if(bets[better] == bisonName) {
+            if(bets[better] == _bisonName) {
                 totalBets += 1;
             }
         }
@@ -54,9 +54,9 @@ contract BisonCasino {
         return betters.length * BET_AMOUNT;
     }
 
-    function bisonExists (bytes32 bisonName) private view returns (bool) {
+    function bisonExists (bytes32 _bisonName) private view returns (bool) {
         for(uint i = 0; i < bisonNames.length; i++) {
-            if(bisonNames[i] == bisonName) {
+            if(bisonNames[i] == _bisonName) {
                 return true;
             }
         }
