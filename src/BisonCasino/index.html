@@ -25,7 +25,7 @@
              <div class="elem"><a href="index.html">Bet</a></div>
            </li>
            <li>
-             <div class="elem"><a href="map.html">Map</a></div>
+             <div class="elem"><a href="BisonWWF/map.html">Map</a></div>
            </li>
            <li>
              <div class="elem"><a href="about.html">About Bisons</a></div>
@@ -43,7 +43,7 @@
       <tr>
         <th>Bison1</th>
         <th>10 bets</th>
-        <button type="button" name="Bet" onclick="placBet("0x01")">Bet</button>
+        <th><button type="button" name="Bet">Bet</button></th>
       </tr>
     </table>
 
@@ -138,8 +138,7 @@ var BisonAbi = web3.eth.contract([
 // Set to deployed contract address. Usage:
 // 	Bison.totalBetsFor("0x01")
 // 	Bison.placBet("0x01")
-var Bison = BisonAbi.at('0x31c4ea413b56fb619130341862e7b598e596c97c');
-
+var Bison = BisonAbi.at('0x19075312743881e71a9657073791796ae7a3779d');
 
 </script>
 </body>
