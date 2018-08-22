@@ -1,7 +1,5 @@
 pragma solidity ^0.4.24;
 
-// CHALLENGES: people cannot place multiple bets
-
 contract BisonCasino {
 
     // WWF's address which will receive %5 of winners' earnings
@@ -16,10 +14,21 @@ contract BisonCasino {
     mapping(address => bytes32) bets;
 
 
-    constructor (bytes32[] _initialBisonNames) public payable {
-        bisonNames = _initialBisonNames;
+    constructor (bytes32[] _initialBisonNames, uint[] _initialMaxDistances) public payable {
+        updateData(_initialBisonNames, _initialMaxDistances);
 
         owner = msg.sender;
+    }
+
+    function updateData(bytes32[] _bisonNameList, uint[] _maxDistances) public {
+        require(_bisonNameList.length == _maxDistances.length);
+
+        for(uint i = 0; i < _bisonNameList.length; i++) {
+            bytes32 bisonName = _bisonNameList[i];
+            if(!bisonExists(bisonName))
+                bisonNames.push(bisonName);
+            bisons[bisonName] = _maxDistances[i];
+        }
     }
 
     function placeBet(bytes32 _bisonName) public payable {
