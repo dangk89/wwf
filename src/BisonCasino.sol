@@ -51,11 +51,7 @@ contract BisonCasino {
     }
 
     function totalPot() public view returns (uint) {
-        uint pot = 0;
-        for(uint i = 0; i < betters.length; i++) {
-            pot += BET_AMOUNT;
-        }
-        return pot;
+        return betters.length * BET_AMOUNT;
     }
 
     function bisonExists (bytes32 bisonName) private view returns (bool) {
@@ -82,19 +78,21 @@ contract BisonCasino {
         }
 
         // calculate winnings and profit
-        uint split = totalPot() / totalBetsFor(bestBison);
-        uint wwfcut = 5*split/100;
-        uint payout = split - wwfcut;
+
+        uint wwfcut = 0.05 * totalPot();
+        uint payout = totalPot() - wwfcut;
+        uint split = payout / totalBetsFor(bestBison);
 
         // transfer winnings and profit
         for(uint j = 0; j < betters.length; j++) {
             address better = betters[j];
             if(bets[better] == bestBison) {
-                better.transfer(payout);
+                better.transfer(split);
             }
         }
+        owner.transfer(this.balanceOf());
 
-        owner.transfer(wwfcut);
+
 
         // clear bets
         delete betters;
