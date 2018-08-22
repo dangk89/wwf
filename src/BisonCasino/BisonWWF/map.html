@@ -1,0 +1,114 @@
+  <meta charset="utf-8">
+  <title>BisonBet</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" href="css/style.css">
+  <script src="mapdata.js"></script>
+
+    <header>
+      <div id="cont">
+        <ul id="bar">
+           <li>
+             <div class="elem logo">
+               <img src="img/logo.jpg" style="height:150px;"/>
+             </div>
+           </li>
+           <li>
+             <div class="elem"><a href="index.html">Bet</a></div>
+           </li>
+           <li>
+             <div class="elem"><a href="map.html">Map</a></div>
+           </li>
+           <li>
+             <div class="elem"><a href="about.html">About Bisons</a></div>
+           </li>
+           <li>
+             <div class="elem"><a href="news.html">News</a></div>
+           </li>
+        </ul>
+      </div>
+    </header>
+
+  <body>
+    <div id="map-container">
+      <h1>MAP</h1>
+        <div id="map">
+        </div>
+    </div>
+  </body>
+</html>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2lsbGViYXJyZXR0IiwiYSI6ImNqa3ZmMmxqNDA1eTIzcXBjeGN0MGo0ZGEifQ.kM13WGCGiMiD_tZsJUOhKw';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/satellite-streets-v10',
+        center: [12.533615, 55.675353], // starting position
+        zoom: 13
+    });
+
+    // Add geolocate control to the map.
+    map.addControl(new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
+    }));
+
+
+    function addMarker(marker) {
+        // create a DOM element for the marker
+        var el = document.createElement('div');
+        el.className = 'marker';
+        el.style.backgroundImage = 'url(' + marker.properties.image + ')';
+        el.style.backgroundSize = 'contain';
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.width = marker.properties.iconSize[0] + 'px';
+        el.style.height = marker.properties.iconSize[1] + 'px';
+
+        // add marker to map
+        new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map);
+    }
+
+    function showBison() {
+        addMarker(mapdata.bison);
+    }
+
+
+
+    /** Takes an input within one numeric range and maps it to an output of another numeric range. */
+    function mapRange(input, input_start, input_end, output_start, output_end) {
+        // https://stackoverflow.com/questions/5731863/mapping-a-numeric-range-onto-another
+        let input_range = input_end - input_start;
+        let output_range = output_end - output_start;
+        let output = (input - input_start)*output_range / input_range + output_start;
+        return Math.round(output);
+    }
+
+    /** Returns a distance, in meters, between two sets of coordinates. */
+    function getDistance(lat1, lon1, lat2, lon2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = deg2rad(lat2-lat1);  // deg2rad below
+        var dLon = deg2rad(lon2-lon1);
+        var a =
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2)
+            ;
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var d = R * c; // Distance in km
+        var m = d * 1000 // Distance in m
+        return m;
+    }
+
+    /*function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }*/
+
+    showBison();
+
+</script>

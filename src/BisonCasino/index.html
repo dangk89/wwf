@@ -6,37 +6,55 @@
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
  <title>Document</title>
 
-<link rel="stylesheet" type="text/css" href="index.css">
+<!--<link rel="stylesheet" type="text/css" href="index.css">-->
+<link rel="stylesheet" href="BisonWWF/css/style.css">
 
 <script src="./node_modules/web3/dist/web3.min.js"></script>
 
 </head>
-<body>
- <div class="container">
 
-<h1>First Smart Contract</h1>
+    <header>
+      <div id="cont">
+        <ul id="bar">
+           <li>
+             <div class="elem logo">
+               <img src="BisonWWF/img/logo.jpg" style="height:150px;"/>
+             </div>
+           </li>
+           <li>
+             <div class="elem"><a href="index.html">Bet</a></div>
+           </li>
+           <li>
+             <div class="elem"><a href="map.html">Map</a></div>
+           </li>
+           <li>
+             <div class="elem"><a href="about.html">About Bisons</a></div>
+           </li>
+           <li>
+             <div class="elem"><a href="news.html">News</a></div>
+           </li>
+        </ul>
+      </div>
+    </header>
 
-<h2 id="instructor"></h2>
-
-<label for="name" class="col-lg-2 control-label">Instructor Name</label>
- <input id="name" type="text">
-
-<label for="name" class="col-lg-2 control-label">Instructor Age</label>
- <input id="age" type="text">
-
-<button id="button">Update Instructor</button>
-
-</div>
-
+  <body>
+    <h1>Choose a Bison to bet on</h1>
+    <table>
+      <tr>
+        <th>Bison1</th>
+        <th>10 bets</th>
+        <button type="button" name="Bet" onclick="placBet("0x01")">Bet</button>
+      </tr>
+    </table>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
 <script>
- if (typeof web3 !== 'undefined') 
+ if (typeof web3 !== 'undefined')
 {
  web3 = new Web3(web3.currentProvider);
- } 
-else 
+ }
+else
 {
 
  // Set localhost to ganache RPC server (7545 for Desktop, 8545 for ganache-cli)
@@ -120,7 +138,7 @@ var BisonAbi = web3.eth.contract([
 // Set to deployed contract address. Usage:
 // 	Bison.totalBetsFor("0x01")
 // 	Bison.placBet("0x01")
-var Bison = BisonAbi.at('0x88e7aa7b3da8d293ea4bedf298ffc2337eab58ec');
+var Bison = BisonAbi.at('0x31c4ea413b56fb619130341862e7b598e596c97c');
 
 
 </script>
