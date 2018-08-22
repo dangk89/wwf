@@ -64,9 +64,10 @@ contract BisonCasino {
     }
 
     function electWinner() public {
+        uint i;
         // find best bison
         bytes32 bestBison = "";
-        for(uint i = 0; i < bisonNames.length; i++) {
+        for(i = 0; i < bisonNames.length; i++) {
             if(i == 0) {
                 bestBison = bisonNames[i];
             } else {
@@ -84,8 +85,8 @@ contract BisonCasino {
         uint split = payout / totalBetsFor(bestBison);
 
         // transfer winnings and profit
-        for(uint j = 0; j < betters.length; j++) {
-            address better = betters[j];
+        for(i = 0; i < betters.length; i++) {
+            address better = betters[i];
             if(bets[better] == bestBison) {
                 better.transfer(split);
             }
@@ -95,6 +96,9 @@ contract BisonCasino {
 
 
         // clear bets
+        for(i = 0; i < betters.length; i++) {
+            delete bets[betters[i]];
+        }
         delete betters;
         // OR
         betters.length = 0;
