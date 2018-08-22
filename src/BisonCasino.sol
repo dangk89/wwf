@@ -9,14 +9,8 @@ contract BisonCasino {
 
     uint constant BET_AMOUNT = 1000;
 
-    struct Bison {
-        uint max_distance_daily;
-        uint max_alt;
-        //max...
-    }
-
     bytes32[] bisonNames;
-    mapping(bytes32 => Bison) bisons;
+    mapping(bytes32 => uint) bisons;
 
     address[] betters;
     mapping(address => bytes32) bets;
@@ -72,7 +66,7 @@ contract BisonCasino {
                 bestBison = bisonNames[i];
             } else {
                 bytes32 newBison = bisonNames[i];
-                if(bisons[newBison].max_distance_daily > bisons[bestBison].max_distance_daily) {
+                if(bisons[newBison] > bisons[bestBison]) {
                     bestBison = newBison;
                }
             }
