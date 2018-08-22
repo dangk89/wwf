@@ -20,7 +20,11 @@ contract BisonCasino {
         owner = msg.sender;
     }
 
+    function () public payable {
+    }
+
     function updateData(bytes32[] _bisonNameList, uint[] _maxDistances) public {
+        require(msg.sender == owner);
         require(_bisonNameList.length == _maxDistances.length, "Data lists must be of same size");
 
         for(uint i = 0; i < _bisonNameList.length; i++) {
@@ -104,7 +108,7 @@ contract BisonCasino {
                 bytes32 newBison = bisonNames[i];
                 if(bisons[newBison] > bisons[bestBison]) {
                     bestBison = newBison;
-               }
+                }
             }
         }
 
