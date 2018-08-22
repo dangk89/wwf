@@ -53,8 +53,25 @@ contract BisonCasino {
         return totalBets;
     }
 
+    function showBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+
     function totalPot() public view returns (uint) {
         return betters.length * BET_AMOUNT;
+    }
+
+    function getBisonNames() public view returns (bytes32[]) {
+        return bisonNames;
+    }
+
+    function getBisonData() public view returns (uint[]) {
+        uint[] memory bisonData = new uint[](bisonNames.length);
+        for(uint i = 0; i < bisonNames.length; i++) {
+            bytes32 bison = bisonNames[i];
+            bisonData[i] = bisons[bison];
+        }
+        return bisonData;
     }
 
     function bisonExists (bytes32 _bisonName) private view returns (bool) {
@@ -65,6 +82,16 @@ contract BisonCasino {
         }
         return false;
     }
+
+    function betterExists (address _better) private view returns (bool) {
+        for(uint i = 0; i < betters.length; i++) {
+            if(betters[i] == _better) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     function electWinner() public {
         uint i;
