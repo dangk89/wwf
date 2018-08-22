@@ -21,7 +21,7 @@ contract BisonCasino {
     }
 
     function updateData(bytes32[] _bisonNameList, uint[] _maxDistances) public {
-        require(_bisonNameList.length == _maxDistances.length);
+        require(_bisonNameList.length == _maxDistances.length, "Data lists must be of same size");
 
         for(uint i = 0; i < _bisonNameList.length; i++) {
             bytes32 bisonName = _bisonNameList[i];
@@ -32,7 +32,7 @@ contract BisonCasino {
     }
 
     function placeBet(bytes32 _bisonName) public payable {
-        require(bisonExists(_bisonName));
+        require(bisonExists(_bisonName), "Bison does not exist");
         require(msg.value == BET_AMOUNT);
 
         betters.push(msg.sender);
@@ -40,7 +40,7 @@ contract BisonCasino {
     }
 
     function totalBetsFor(bytes32 _bisonName) public view returns (uint) {
-        require(bisonExists(_bisonName));
+        require(bisonExists(_bisonName), "Bison does not exist");
 
         // count total bets
         uint totalBets = 0;
