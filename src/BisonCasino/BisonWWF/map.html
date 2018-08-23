@@ -45,7 +45,7 @@
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/satellite-streets-v10',
-        center: [22.502706468678337, 45.26951039691041], // starting position
+        center: [22.396690272687287, 45.24872481069317], // starting position
         zoom: 13
     });
 
@@ -75,13 +75,10 @@
     }
 
     function showBison() {
-      for (var i = 0; i < mapdata.length; i++) {
-        addMarker(mapdata[i]);
+      for (let key in mapdata) {
+        addMarker(mapdata[key]);
       }
-        
     }
-
-
 
     /** Takes an input within one numeric range and maps it to an output of another numeric range. */
     function mapRange(input, input_start, input_end, output_start, output_end) {
