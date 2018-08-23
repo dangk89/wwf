@@ -5,7 +5,7 @@
   <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" href="css/style.css">
-  <script src="mapdata.js"></script>
+  <script src="mapdata3.js"></script>
 
     <header>
       <div id="cont">
@@ -67,6 +67,7 @@
         el.style.backgroundRepeat = 'no-repeat';
         el.style.width = marker.properties.iconSize[0] + 'px';
         el.style.height = marker.properties.iconSize[1] + 'px';
+        el.id = "bisonid"
 
         // add marker to map
         new mapboxgl.Marker(el)
@@ -104,6 +105,45 @@
         var m = d * 1000 // Distance in m
         return m;
     }
+
+/*
+    //Forsøg på popup
+    // Create a popup, but don't add it to the map yet.
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    
+    });
+
+    map.on('mouseenter', "places", function(e) {
+        // Change the cursor style as a UI indicator.
+        console.log("hej")
+        map.getCanvas().style.cursor = 'pointer';
+
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = e.features[0].properties.name;
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+    });
+
+    map.on('mouseleave', 'places', function() {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+*/
+
 
     /*function deg2rad(deg) {
         return deg * (Math.PI/180)
