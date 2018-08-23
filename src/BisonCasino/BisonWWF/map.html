@@ -45,7 +45,7 @@
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/satellite-streets-v10',
-        center: [12.533615, 55.675353], // starting position
+        center: [22.502706468678337, 45.26951039691041], // starting position
         zoom: 13
     });
 
@@ -75,7 +75,10 @@
     }
 
     function showBison() {
-        addMarker(mapdata.bison);
+      for (var i = 0; i < mapdata.length; i++) {
+        addMarker(mapdata[i]);
+      }
+        
     }
 
 
