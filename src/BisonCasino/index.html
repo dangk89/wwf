@@ -59,14 +59,43 @@ else
 {
 
  // Set localhost to ganache RPC server (7545 for Desktop, 8545 for ganache-cli)
-web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/[e715adc02100465cae4672888c50d7af]"));
  }
+
+ 
 
 // Set accoutn 0
 web3.eth.defaultAccount = web3.eth.accounts[0];
 
 // Bison Contract ABI
 var BisonAbi = web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "clearAll",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "clearBetters",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "clearBisons",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
 	{
 		"constant": false,
 		"inputs": [],
@@ -80,7 +109,7 @@ var BisonAbi = web3.eth.contract([
 		"constant": false,
 		"inputs": [
 			{
-				"name": "bisonName",
+				"name": "_bisonName",
 				"type": "bytes32"
 			}
 		],
@@ -91,10 +120,19 @@ var BisonAbi = web3.eth.contract([
 		"type": "function"
 	},
 	{
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
 		"inputs": [
 			{
-				"name": "initialBisonNames",
+				"name": "_initialBisonNames",
 				"type": "bytes32[]"
+			},
+			{
+				"name": "_initialMaxDistances",
+				"type": "uint256[]"
 			}
 		],
 		"payable": true,
@@ -102,10 +140,70 @@ var BisonAbi = web3.eth.contract([
 		"type": "constructor"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_bisonNameList",
+				"type": "bytes32[]"
+			},
+			{
+				"name": "_maxDistances",
+				"type": "uint256[]"
+			}
+		],
+		"name": "updateData",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBisonData",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBisonNames",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "showBalance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
-				"name": "bisonName",
+				"name": "_bisonName",
 				"type": "bytes32"
 			}
 		],
@@ -139,7 +237,7 @@ var BisonAbi = web3.eth.contract([
 // Set to deployed contract address. Usage:
 // 	Bison.totalBetsFor("0x01")
 // 	Bison.placBet("0x01")
-var Bison = BisonAbi.at('0x19075312743881e71a9657073791796ae7a3779d');
+var Bison = BisonAbi.at('0xd02bdcc3b3c3f6fc85ef1ab1905aab863bbe447b');
 
 </script>
 

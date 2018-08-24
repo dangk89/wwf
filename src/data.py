@@ -19,7 +19,7 @@ for i in range(100):
 	mapdata["b"+str(i)]= OrderedDict([("type", "Feature"),("properties",OrderedDict([("name",names.get_last_name()),("gender", random.randint(0,1)), ("age", random.randint(0,20)), ("max distance traveled", random.randint(6000,9100)), ("total wins", random.randint(0,2)),("image","img/bison.png"),("iconSize",[30,30]),("url","index.html")])),("geometry", OrderedDict([("type", "Point"),("coordinates", [random.uniform(22.35131, 22.535629999999998),random.uniform(45.153040000000004, 45.28548)])]))])
 
 
-# Save
+# Save mapdata and bison_data
 with open("mapdata.js", 'w') as f:
         json.dump(mapdata, f)
 
