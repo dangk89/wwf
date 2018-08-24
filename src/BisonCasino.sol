@@ -60,6 +60,16 @@ contract BisonCasino {
         return totalBets;
     }
 
+    function totalBetsForAllBisons() public view returns (uint[]) {
+        uint[] memory betArray = new uint[](bisonNames.length);
+        for(uint i = 0; i < bisonNames.length; i++) {
+            bytes32 bison = bisonNames[i];
+
+            betArray[i] = totalBetsFor(bison);
+        }
+        return betArray;
+    }
+
     function showBalance() public view returns (uint) {
         return address(this).balance;
     }
@@ -99,7 +109,6 @@ contract BisonCasino {
         return false;
     }
 
-
     function electWinner() public {
         uint i;
         // find best bison
@@ -136,31 +145,19 @@ contract BisonCasino {
 
         owner.transfer(address(this).balance);
 
-        // clear bets
-        delete betters;
-        // OR
         betters.length = 0;
     }
-    
-    
+
     function clearBisons() public {
         bisonNames.length = 0;
     }
-    
-    
+
     function clearBetters() public {
-    betters.length = 0;
+        betters.length = 0;
     }
-    
-    
+
     function clearAll() public {
-    clearBisons();
-    clearBetters();
-        
+        clearBisons();
+        clearBetters();
     }
 }
-
-
-
-
-
