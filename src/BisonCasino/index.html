@@ -59,13 +59,15 @@ else
 {
 
  // Set localhost to ganache RPC server (7545 for Desktop, 8545 for ganache-cli)
-web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/[e715adc02100465cae4672888c50d7af]"));
+//web3 = new Web3(new Web3.providers.HttpProvider("localhost:8545"));
+web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/e715adc02100465cae4672888c50d7af"));
  }
 
- 
+// Set account
+web3.eth.defaultAccount = "0x931a0d1ba8f47eb81cfcea5159880f312155d9e9";
+//web3.eth.defaultAccount = web3.eth.accounts[0]
 
-// Set accoutn 0
-web3.eth.defaultAccount = web3.eth.accounts[0];
+
 
 // Bison Contract ABI
 var BisonAbi = web3.eth.contract([
@@ -76,7 +78,7 @@ var BisonAbi = web3.eth.contract([
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
+		"type": "function"	
 	},
 	{
 		"constant": false,
@@ -238,7 +240,19 @@ var BisonAbi = web3.eth.contract([
 // 	Bison.totalBetsFor("0x01")
 // 	Bison.placBet("0x01")
 var Bison = BisonAbi.at('0xd02bdcc3b3c3f6fc85ef1ab1905aab863bbe447b');
+//var getData = Bison.placeBet.getData(function parameters);
+//web3.eth.sendTransaction({to:"0xd02bdcc3b3c3f6fc85ef1ab1905aab863bbe447b", from:"0x931a0d1ba8f47eb81cfcea5159880f312155d9e9", data: getData, value: 1000});
+
+
+var transactionObject_non = {from: web3.eth.accounts[0]};
+var transactionObject = {from: web3.eth.accounts[0], value: 1000};
+
+
+/* Eksempler
+Bison.placeBet.sendTransaction("0x01", transactionObject, (error, result) => {console.log(result)});
+Bison.totalPot.call(transactionObject_non, (error, result) => {console.log(result)});
+*/
+
 
 </script>
-
 </html>
