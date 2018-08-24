@@ -14,6 +14,42 @@ export class Web3Service {
   private abi = [
     {
       "constant": false,
+      "inputs": [],
+      "name": "clearAll",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "clearBetters",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "clearBisons",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "electWinner",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
       "inputs": [
         {
           "name": "_bisonName",
@@ -27,32 +63,24 @@ export class Web3Service {
       "type": "function"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "getBisonNames",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bytes32[]"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "fallback"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "totalPot",
-      "outputs": [
+      "inputs": [
         {
-          "name": "",
-          "type": "uint256"
+          "name": "_initialBisonNames",
+          "type": "bytes32[]"
+        },
+        {
+          "name": "_initialMaxDistances",
+          "type": "uint256[]"
         }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "constructor"
     },
     {
       "constant": false,
@@ -73,12 +101,31 @@ export class Web3Service {
       "type": "function"
     },
     {
-      "constant": false,
+      "constant": true,
       "inputs": [],
-      "name": "electWinner",
-      "outputs": [],
+      "name": "getBisonData",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
       "payable": false,
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getBisonNames",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -117,7 +164,7 @@ export class Web3Service {
     {
       "constant": true,
       "inputs": [],
-      "name": "getBisonData",
+      "name": "totalBetsForAllBisons",
       "outputs": [
         {
           "name": "",
@@ -129,28 +176,25 @@ export class Web3Service {
       "type": "function"
     },
     {
-      "inputs": [
+      "constant": true,
+      "inputs": [],
+      "name": "totalPot",
+      "outputs": [
         {
-          "name": "_initialBisonNames",
-          "type": "bytes32[]"
-        },
-        {
-          "name": "_initialMaxDistances",
-          "type": "uint256[]"
+          "name": "",
+          "type": "uint256"
         }
       ],
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "constructor"
-    },
-    {
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "fallback"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     }
   ];
+
+
+
   // address where contract is deployed.
-  private contractDeployedAt = "0xc3ae5a8a96656395b56f11673531e77b6980d775";
+  private contractDeployedAt = "0x896bcd6eff98ce09bef91067b300d51351e078c8";
   private bisonCasino = null;
   private accounts: string[];
 
@@ -182,16 +226,17 @@ export class Web3Service {
 
 
   async placeBet(bisonName: string) {
-
-
     let res = await this.bisonCasino.methods.placeBet(this.web3.utils.fromAscii(bisonName)).send({
       from: this.accounts[0],
       value: 1000
     });
     console.log(res);
-
-
   }
+
+  async totalBetsForAllBisons() {
+    return await this.bisonCasino.methods.totalBetsForAllBisons().call();
+  }
+
 
 
 

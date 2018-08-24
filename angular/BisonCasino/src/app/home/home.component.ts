@@ -11,6 +11,7 @@ declare let window: any;
 })
 export class HomeComponent implements OnInit {
   web3: Web3;
+  blockChainBisonBets = [];
   blockChainBisonNames = [];
   bisons = [];
   sortOptions: SelectItem[];
@@ -101,8 +102,18 @@ export class HomeComponent implements OnInit {
       this.blockChainBisonNames.push(this.web3.utils.toAscii(res[i]).replace(/\0/g, ''));
     }
 
+    this.getAllBisonBets();
+  }
+
+
+  async getAllBisonBets() {
+    let res = await this.web3Service.totalBetsForAllBisons();
+
     this.findBisonOnBlockchainData();
   }
+
+
+
 
 
 
