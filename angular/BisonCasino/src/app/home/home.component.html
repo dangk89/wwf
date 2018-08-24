@@ -1,16 +1,5 @@
 <h1>Choose a Bison to bet on</h1>
-<table>
-  <tr>
-    <th>Bison1</th>
-    <th>10 bets</th>
-    <th><button type="button" name="Bet">Bet</button></th>
-  </tr>
-</table>
-
-
-
-
-<p-dataView #dv [value]="bisons" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="bets"
+<p-dataView #dv [value]="bisons" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="name"
             [sortField]="sortField" [sortOrder]="sortOrder">
   <p-header>
     <div class="ui-helper-clearfix">
@@ -36,24 +25,24 @@
       </div>
       <div class="ui-g-12 ui-md-8 bison-details">
         <div class="ui-g">
-          <div class="ui-g-2 ui-sm-6">Navn: </div>
+          <div class="ui-g-2 ui-sm-6">Name: </div>
           <div class="ui-g-10 ui-sm-6"><b>{{bison.name}}</b></div>
 
-          <div class="ui-g-2 ui-sm-6">Alder: </div>
+          <div class="ui-g-2 ui-sm-6">Age: </div>
           <div class="ui-g-10 ui-sm-6"><b>{{bison.age}} år</b></div>
 
-          <div class="ui-g-2 ui-sm-6">Køn: </div>
+          <div class="ui-g-2 ui-sm-6">Gender: </div>
           <div class="ui-g-10 ui-sm-6"><b>{{genderToString(bison.gender)}}</b></div>
 
-          <div class="ui-g-2 ui-sm-6">Maks distance: </div>
+          <div class="ui-g-2 ui-sm-6">Max distance: </div>
           <div class="ui-g-10 ui-sm-6"><b>{{bison.maxDistance}} meter</b></div>
 
-          <div class="ui-g-2 ui-sm-6">Sejr i alt: </div>
+          <div class="ui-g-2 ui-sm-6">Total wins: </div>
           <div class="ui-g-10 ui-sm-6"><b>{{bison.totalWins}}</b></div>
         </div>
       </div>
       <div class="ui-g-12 ui-md-1 search-icon">
-        <button pButton type="button" icon="pi pi-search" (click)="placeBet(bison.name)"></button>
+        <button pButton type="button" icon="pi pi-search" (click)="placeBet(bison.name)"> Bet on Bison!</button>
       </div>
     </div>
   </ng-template>

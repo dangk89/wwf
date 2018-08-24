@@ -8,7 +8,7 @@ declare let window: any;
 
 @Injectable()
 export class Web3Service {
-  private web3: Web3;
+  web3: Web3;
 
 
   private abi = [
@@ -150,7 +150,7 @@ export class Web3Service {
     }
   ];
   // address where contract is deployed.
-  private contractDeployedAt = "0xfe8c0220b3cc7087416c3cf9c9fa3d7f223668e2";
+  private contractDeployedAt = "0xc3ae5a8a96656395b56f11673531e77b6980d775";
   private bisonCasino = null;
   private accounts: string[];
 
@@ -182,10 +182,15 @@ export class Web3Service {
 
 
   async placeBet(bisonName: string) {
-    return await this.bisonCasino.methods.placeBet(bisonName).send({
+
+
+    let res = await this.bisonCasino.methods.placeBet(this.web3.utils.fromAscii(bisonName)).send({
       from: this.accounts[0],
       value: 1000
-    })
+    });
+    console.log(res);
+
+
   }
 
 

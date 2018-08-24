@@ -3,7 +3,7 @@ import {Web3Service} from "../web3.service";
 import {SelectItem} from "primeng/api";
 import {mapData} from "../../assets/mapdata";
 import Web3 from "web3";
-
+declare let window: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -22,20 +22,10 @@ export class HomeComponent implements OnInit {
   constructor(private web3Service: Web3Service) { }
 
   ngOnInit() {
-    this.web3 = new Web3('penis');
-    console.log(mapData);
+    this.web3 = this.web3Service.web3;
 
 
-    for(let key in mapData) {
-      console.log(mapData[key].properties.name);
-      this.bisons.push({
-        name: mapData[key].properties.name,
-        age: mapData[key].properties.age,
-        gender: mapData[key].properties.gender,
-        maxDistance: mapData[key].properties['max distance traveled'],
-        totalWins: mapData[key].properties['total wins']
-      });
-    }
+
 
 
 
@@ -43,7 +33,6 @@ export class HomeComponent implements OnInit {
       {label: 'Most Bets First', value: '!bets'},
       {label: 'Least Bets First', value: 'bets'}
     ];
-
     this.getBisonNames();
   }
 
@@ -59,13 +48,33 @@ export class HomeComponent implements OnInit {
 
 
   findBisonOnBlockchainData() {
+    for(let key in mapData) {
+      for(let i in this.blockChainBisonNames) {
 
+        console.log(this.blockChainBisonNames[i].length);
+        console.log(mapData[key].properties.name.length);
+
+
+        if(this.blockChainBisonNames[i] == mapData[key].properties.name) {
+          console.log("add");
+          this.bisons.push({
+            name: mapData[key].properties.name,
+            age: mapData[key].properties.age,
+            gender: mapData[key].properties.gender,
+            maxDistance: mapData[key].properties['max distance traveled'],
+            totalWins: mapData[key].properties['total wins']
+          });
+        }
+
+      }
+
+    }
   }
 
 
 
-  placeBet() {
-
+  placeBet(bisonName: string) {
+    this.web3Service.placeBet(bisonName);
   }
 
   onSortChange(event) {
@@ -88,14 +97,11 @@ export class HomeComponent implements OnInit {
   async getBisonNames() {
     let res = await this.web3Service.getBisonNames();
 
-    for(let bytes32 in res) {
-      this.blockChainBisonNames.push(this.web3.toAscii(bytes32))
+    for(let i in res) {
+      this.blockChainBisonNames.push(this.web3.utils.toAscii(res[i]).replace(/\0/g, ''));
     }
 
-
-
-
-    console.log(this.blockChainBisonNames);
+    this.findBisonOnBlockchainData();
   }
 
 
