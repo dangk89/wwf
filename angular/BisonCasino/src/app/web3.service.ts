@@ -205,6 +205,7 @@ export class Web3Service {
       );
 
       this.accounts = await this.web3.eth.getAccounts();
+
       console.log(this.accounts);
     } else {
       console.log("No web3? Please trying with MetaMask!");

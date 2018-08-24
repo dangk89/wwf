@@ -8,6 +8,11 @@ import { AboutComponent } from './about/about.component';
 import { MapComponent } from './map/map.component';
 import { NewsComponent } from './news/news.component';
 import {AppRoutingModule} from "./app.routing.module";
+import {DataViewModule} from "primeng/dataview";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {PanelModule} from "primeng/panel";
+import {DropdownModule} from "primeng/primeng";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -19,7 +24,13 @@ import {AppRoutingModule} from "./app.routing.module";
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    DataViewModule,
+    PanelModule,
+    DropdownModule,
+    FormsModule
+
   ],
   providers: [
     Web3Service
