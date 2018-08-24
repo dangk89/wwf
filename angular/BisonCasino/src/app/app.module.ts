@@ -7,6 +7,7 @@ import {Web3Service} from "./web3.service";
 import { AboutComponent } from './about/about.component';
 import { MapComponent } from './map/map.component';
 import { NewsComponent } from './news/news.component';
+import {AppRoutingModule} from "./app.routing.module";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NewsComponent } from './news/news.component';
     NewsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [
     Web3Service
