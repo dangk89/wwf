@@ -24,11 +24,12 @@ contract BisonCasino {
     }
 
     function updateData(bytes32[] _bisonNameList, uint[] _maxDistances) public {
-        require(msg.sender == owner, "Only the owner can update data");
+        //require(msg.sender == owner, "Only the owner can update data");
         require(_bisonNameList.length == _maxDistances.length, "Data lists must be of same size");
 
         for(uint i = 0; i < _bisonNameList.length; i++) {
             bytes32 bisonName = _bisonNameList[i];
+
             if(!bisonExists(bisonName))
                 bisonNames.push(bisonName);
             bisons[bisonName] = _maxDistances[i];
@@ -37,7 +38,8 @@ contract BisonCasino {
 
     function placeBet(bytes32 _bisonName) public payable {
         require(bisonExists(_bisonName), "Bison does not exist");
-        require(msg.value == BET_AMOUNT);
+        require(!betterExists(msg.sender), "This address already placed a bet");
+        require(msg.value == BET_AMOUNT, "You must bet exactly BET_AMOUNT");
 
         betters.push(msg.sender);
         bets[msg.sender] = _bisonName;
@@ -50,6 +52,7 @@ contract BisonCasino {
         uint totalBets = 0;
         for(uint i = 0; i < betters.length; i++) {
             address better = betters[i];
+
             if(bets[better] == _bisonName) {
                 totalBets += 1;
             }
@@ -102,10 +105,11 @@ contract BisonCasino {
         // find best bison
         bytes32 bestBison = "";
         for(i = 0; i < bisonNames.length; i++) {
+            bytes32 newBison = bisonNames[i];
+
             if(i == 0) {
-                bestBison = bisonNames[i];
+                bestBison = newBison;
             } else {
-                bytes32 newBison = bisonNames[i];
                 if(bisons[newBison] > bisons[bestBison]) {
                     bestBison = newBison;
                 }
@@ -123,6 +127,7 @@ contract BisonCasino {
             // transfer winnings and profit
             for(i = 0; i < betters.length; i++) {
                 address better = betters[i];
+
                 if(bets[better] == bestBison) {
                     better.transfer(split);
                 }
@@ -132,9 +137,6 @@ contract BisonCasino {
         owner.transfer(address(this).balance);
 
         // clear bets
-        for(i = 0; i < betters.length; i++) {
-            delete bets[betters[i]];
-        }
         delete betters;
         // OR
         betters.length = 0;
