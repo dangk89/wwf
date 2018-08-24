@@ -141,4 +141,26 @@ contract BisonCasino {
         // OR
         betters.length = 0;
     }
+    
+    
+    function clearBisons() public {
+        bisonNames.length = 0;
+    }
+    
+    
+    function clearBetters() public {
+    betters.length = 0;
+    }
+    
+    
+    function clearAll() public {
+    clearBisons();
+    clearBetters();
+        
+    }
 }
+
+
+
+
+
