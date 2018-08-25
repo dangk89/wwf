@@ -107,7 +107,7 @@ contract BisonCasino {
     }
 
     /* Read-only functions */
-    function getPrice() public {
+    function getPrice() public view returns (uint) {
         return BET_AMOUNT;
     }
 
