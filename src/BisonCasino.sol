@@ -30,7 +30,7 @@ contract BisonCasino {
         //require(msg.sender == owner, "Only the owner can update data");
         require(_bisonNameList.length == _maxDistances.length, "Data lists must be of same size");
 
-        for(uint i = _bisonNameList.length; i != 0 ; i--) {
+        for(uint i = 0; i != _bisonNameList.length; i++) {
             bytes32 bisonName = _bisonNameList[i];
 
             if(!bisonExists(bisonName))
