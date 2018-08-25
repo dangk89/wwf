@@ -63,6 +63,20 @@ export class Web3Service {
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_price",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPrice",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "payable": true,
       "stateMutability": "payable",
       "type": "fallback"
@@ -78,8 +92,8 @@ export class Web3Service {
           "type": "uint256[]"
         }
       ],
-      "payable": true,
-      "stateMutability": "payable",
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "constructor"
     },
     {
@@ -131,7 +145,7 @@ export class Web3Service {
     {
       "constant": true,
       "inputs": [],
-      "name": "showBalance",
+      "name": "getPrice",
       "outputs": [
         {
           "name": "",
@@ -194,7 +208,7 @@ export class Web3Service {
 
 
   // address where contract is deployed.
-  private contractDeployedAt = "0x896bcd6eff98ce09bef91067b300d51351e078c8";
+  private contractDeployedAt = "0xfd39b75ea171d25efeed020a1b1e5270f510161c";
   private bisonCasino = null;
   private accounts: string[];
 

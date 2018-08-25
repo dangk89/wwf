@@ -26,10 +26,6 @@ export class HomeComponent implements OnInit {
     this.web3 = this.web3Service.web3;
 
 
-
-
-
-
     this.sortOptions = [
       {label: 'Most Bets First', value: '!bets'},
       {label: 'Least Bets First', value: 'bets'}
@@ -52,12 +48,9 @@ export class HomeComponent implements OnInit {
     for(let key in mapData) {
       for(let i in this.blockChainBisonNames) {
 
-        console.log(this.blockChainBisonNames[i].length);
-        console.log(mapData[key].properties.name.length);
 
 
         if(this.blockChainBisonNames[i] == mapData[key].properties.name) {
-          console.log("add");
           this.bisons.push({
             name: mapData[key].properties.name,
             age: mapData[key].properties.age,
@@ -70,6 +63,9 @@ export class HomeComponent implements OnInit {
       }
 
     }
+
+
+    this.getAllBisonBets();
   }
 
 
@@ -97,25 +93,26 @@ export class HomeComponent implements OnInit {
 
   async getBisonNames() {
     let res = await this.web3Service.getBisonNames();
+    console.log(res);
 
     for(let i in res) {
       this.blockChainBisonNames.push(this.web3.utils.toAscii(res[i]).replace(/\0/g, ''));
     }
 
-    this.getAllBisonBets();
-  }
+    this.findBisonOnBlockchainData();
 
+  }
 
   async getAllBisonBets() {
     let res = await this.web3Service.totalBetsForAllBisons();
 
-    this.findBisonOnBlockchainData();
+
+    console.log(res);
+
+
+    this.bisons.forEach((val, index) => {
+      this.bisons[index].bets = res[index];
+    });
+
   }
-
-
-
-
-
-
-
 }
