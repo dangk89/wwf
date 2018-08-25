@@ -1,17 +1,9 @@
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 70%;
+h1 {
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+
+.bisonContainer {
+  width: 80%;
   margin: auto;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr {
-  background-color: #dddddd;
-  border: 1px solid black;
 }
