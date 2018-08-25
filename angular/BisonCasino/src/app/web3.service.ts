@@ -242,7 +242,7 @@ export class Web3Service {
   async placeBet(bisonName: string) {
     let res = await this.bisonCasino.methods.placeBet(this.web3.utils.fromAscii(bisonName)).send({
       from: this.accounts[0],
-      value: 1000
+      value: 100000000000000000
     });
     console.log(res);
   }

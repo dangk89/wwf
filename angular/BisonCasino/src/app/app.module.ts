@@ -13,6 +13,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {PanelModule} from "primeng/panel";
 import {DropdownModule} from "primeng/primeng";
 import {FormsModule} from "@angular/forms";
+import {GMapModule} from "primeng/gmap";
 
 @NgModule({
   declarations: [
@@ -29,8 +30,8 @@ import {FormsModule} from "@angular/forms";
     DataViewModule,
     PanelModule,
     DropdownModule,
-    FormsModule
-
+    FormsModule,
+    GMapModule
   ],
   providers: [
     Web3Service

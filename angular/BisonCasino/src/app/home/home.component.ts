@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   constructor(private web3Service: Web3Service) { }
 
   ngOnInit() {
+
     this.web3 = this.web3Service.web3;
 
 

@@ -1,13 +1,4 @@
-#map-container {
-  position: relative;
-  width: 100%;
+mgl-map {
   height: 100%;
-}
-
-#map {
-  position: relative;
-  left: 10%;
-  width: 80%;
-  height: 80%;
-  border: 1px solid black;
+  width: 100%;
 }
