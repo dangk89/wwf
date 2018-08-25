@@ -170,8 +170,4 @@ contract BisonCasino {
         }
         return false;
     }
-
-    function showBalance() public view returns (uint) {
-        return address(this).balance;
-    }
 }
