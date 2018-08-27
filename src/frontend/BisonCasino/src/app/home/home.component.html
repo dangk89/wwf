@@ -1,0 +1,62 @@
+<h1>Choose a Bison to bet on</h1>
+<p-dataView #dv [value]="bisons" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="name"
+            [sortField]="sortField" [sortOrder]="sortOrder">
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-4">
+          <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
+        </div>
+        <div class="ui-g-6 ui-md-4 filter-container">
+          <div style="position:relative">
+            <input type="search" pInputText placeholder="Search by name" (keyup)="dv.filter($event.target.value)">
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-4" style="text-align:right">
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        </div>
+      </div>
+    </div>
+  </p-header>
+  <ng-template let-bison pTemplate="listItem">
+    <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+      <div class="ui-g-12 ui-md-3" style="text-align:center">
+        <img src="../../assets/bison.jpg" style="max-height: 100px">
+      </div>
+      <div class="ui-g-12 ui-md-8 bison-details">
+        <div class="ui-g">
+          <div class="ui-g-2 ui-sm-6">Name: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{bison.name}}</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Age: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{bison.age}} år</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Gender: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{genderToString(bison.gender)}}</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Max distance: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{bison.maxDistance}} meter</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Total wins: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{bison.totalWins}}</b></div>
+
+          <div class="ui-g-2 ui-sm-6">Bets: </div>
+          <div class="ui-g-10 ui-sm-6"><b>{{bison.bets}}</b></div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-1 search-icon">
+        <button pButton type="button" icon="pi pi-search" (click)="placeBet(bison.name)"> Bet on Bison!</button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template let-bison pTemplate="gridItem">
+    <div style="padding:.5em" class="ui-g-12 ui-md-3">
+      <p-panel [header]="bison.vin" [style]="{'text-align':'center'}">
+        <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
+        <div class="bison-detail">{{bison.year}} - {{bison.color}}</div>
+        <hr class="ui-widget-content" style="border-top:0">
+        <button pButton type="button" icon="pi pi-search" (click)="placeBet(bison.name)" style="margin-top:0"></button>
+      </p-panel>
+    </div>
+  </ng-template>
+</p-dataView>
