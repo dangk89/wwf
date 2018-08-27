@@ -30,7 +30,6 @@ import {FormsModule} from "@angular/forms";
     PanelModule,
     DropdownModule,
     FormsModule
-
   ],
   providers: [
     Web3Service
