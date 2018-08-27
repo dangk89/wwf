@@ -10,3 +10,10 @@ h1 {
   width: 80%;
   margin: auto;
 }
+
+#betButton {
+  font-size: 24px;
+  background-color: #E6E4D6;
+  border: 1px solid black;
+  font-family: sans-serif;
+}
